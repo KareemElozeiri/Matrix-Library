@@ -9,15 +9,17 @@ private:
 	enteryType** matrix;
 
 public:
-	Matrix(int rows_num, int cols_num);
+	Matrix(int rows_num, int cols_num); //constructor 
+	Matrix(const Matrix&);
+	~Matrix();//destructor
 
 	void setElements();
 	void setElement(int row, int col);
 
 	enteryType getElement(int row, int col) const;
 
-	enteryType* getRow() const;
-	enteryType* getCol() const;
+	enteryType* getRow(int row) const;
+	enteryType* getCol(int col) const;
 
 };
 
