@@ -1,2 +1,5 @@
-﻿  main.cpp
-  Matrix library.vcxproj -> C:\kareem\Matrix-Library\x64\Debug\Matrix library.exe
+﻿  Matrix.cpp
+  main.cpp
+  Generating Code...
+  LINK : C:\kareem\Kareem El-ozeiri\Matrix-Library\x64\Debug\Matrix library.exe not found or not built by the last incremental link; performing full link
+  Matrix library.vcxproj -> C:\kareem\Kareem El-ozeiri\Matrix-Library\x64\Debug\Matrix library.exe
