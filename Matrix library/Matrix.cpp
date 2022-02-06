@@ -15,8 +15,13 @@ Matrix::Matrix(int rows_num, int cols_num)
 
 }
 
-Matrix::Matrix(const Matrix&)
+Matrix::Matrix(const Matrix& mat): Matrix(mat.rows_num,mat.cols_num)
 {
+	for (int row = 0; row < this->rows_num; row++) {
+		for (int col = 0; col < this->cols_num; col++) {
+			this->matrix[row][col] = mat.matrix[row][col];
+		}
+	}
 }
 
 Matrix::~Matrix() {
@@ -59,6 +64,35 @@ double* Matrix::getCol(int col_num) const {
 		col[i] = this->matrix[i][col_num];
 	}
 	return col;
+}
+
+Matrix Matrix::operator*(Matrix mat)
+{
+	try {
+		if (this->cols_num != mat.rows_num) {
+			throw std::string("Invalid matrix multiplications: dimensions do not match!");
+		}
+	}
+	catch (std::string e) {
+		std::cout << e << std::endl;
+	}
+
+	Matrix result(this->rows_num, mat.cols_num);
+
+
+	return result;
+
+}
+
+Matrix Matrix::transpose(bool inplace)
+{
+	Matrix trans(this->cols_num,this->rows_num);
+	for (int row = 0; row < this->rows_num; row++) {
+		for (int col = 0; col < this->cols_num; col++) {
+			trans.matrix[col][row] = this->matrix[row][col];
+		}
+	}
+	return trans;
 }
 
 
