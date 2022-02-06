@@ -62,13 +62,16 @@ double* Matrix::getCol(int col_num) const {
 }
 
 
-void Matrix::printMatrix() const
+
+std::ostream& operator<<(std::ostream& cout, const Matrix& mat)
 {
-	for (int row = 0; row < this->rows_num; row++) {
-		for (int col = 0; col < this->cols_num; col++) {
-			std::cout << this->matrix[row][col] << " ";
+	std::cout << std::endl;
+	for (int row = 0; row < mat.rows_num; row++) {
+		for (int col = 0; col < mat.cols_num; col++) {
+			std::cout << mat.matrix[row][col] << " ";
 		}
 		std::cout << std::endl;
 	}
-}
 
+	return cout;
+}

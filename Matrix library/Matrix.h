@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 
 class Matrix
 {
@@ -15,7 +17,8 @@ public:
 	double* getRow(int row) const;
 	double* getCol(int col) const;
 
-	void printMatrix() const;
+
+	friend std::ostream&  operator<<(std::ostream& cout, const Matrix& mat);
 private:
 	int rows_num;
 	int cols_num;

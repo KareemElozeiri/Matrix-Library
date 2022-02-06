@@ -13,7 +13,7 @@ int main() {
 	int cols = 3;
 	Matrix m(rows,cols);
 	m.setElements();
-	m.printMatrix();
+	std::cout << "printing matrix: " << m;
 	std::cout << "Getting column 1 and row 1:"<<std::endl;
 	printArray(m.getCol(1), rows);
 	printArray(m.getRow(1), cols);
