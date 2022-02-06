@@ -23,16 +23,19 @@ public:
 	double* getRow(int row) const;
 	double* getCol(int col) const;
 
+
+	//overloading the equal operator for matrices
+	Matrix operator=(const Matrix mat);
 	//overloading the operator << for printing out the matrix
 	friend std::ostream&  operator<<(std::ostream& cout, const Matrix& mat);
 	//overloading the multiplication operator for multiplying matrices
-	Matrix operator*(Matrix mat);
+	Matrix operator*(const Matrix mat);
 	//overloading the multiplication operator for multiplying matrix by scalar
 	Matrix operator*(double scalar);
 	//overloading the addition operator for adding matrices
-	Matrix operator+(Matrix mat);
+	Matrix operator+(const Matrix mat);
 	//overloading the subtraction operator for subtracting matrices 
-	Matrix operator-(Matrix mat);
+	Matrix operator-(const Matrix mat);
 	//function for getting trasnpose of the matrix and returning that transpose of the matrix 
 	Matrix transpose(bool inplace = false);
 

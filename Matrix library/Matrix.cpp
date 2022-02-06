@@ -81,6 +81,35 @@ double* Matrix::getCol(int col_num) const {
 	return col;
 }
 
+Matrix Matrix::operator=(const Matrix mat)
+{
+	if (this == &mat) {
+		return *this;
+	}
+	if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num) {
+		for (int i = 0; i < this->rows_num; i++) {
+			delete[] this->matrix[i];
+		}
+		delete this->matrix;
+		this->rows_num = mat.rows_num;
+		this->cols_num = mat.cols_num;
+		//alocating memory 
+		this->matrix = new double* [this->rows_num];
+
+		for (int i = 0; i < this->rows_num; i++) {
+			this->matrix[i] = new double[this->cols_num];
+		}
+	}
+
+	for (int i = 0; i < this->rows_num; i++) {
+		for (int j = 0; j < this->cols_num; j++) {
+			this->matrix[i][j] = mat.matrix[i][j];
+		}
+	}
+
+	return *this;
+}
+
 Matrix Matrix::operator*(Matrix mat)
 {
 	try {
@@ -118,7 +147,7 @@ Matrix Matrix::operator*(double scalar)
 	return result;
 }
 
-Matrix Matrix::operator+(Matrix mat)
+Matrix Matrix::operator+(const Matrix mat)
 {
 	try {
 		if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num)
@@ -138,7 +167,7 @@ Matrix Matrix::operator+(Matrix mat)
 	return result;
 }
 
-Matrix Matrix::operator-(Matrix mat)
+Matrix Matrix::operator-(const Matrix mat)
 {
 	try {
 		if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num)
