@@ -9,15 +9,20 @@ void printArray(double* arr,int size) {
 }
 
 int main() {
-	int rows = 3;
+	int rows = 4;
 	int cols = 3;
 	Matrix m(rows,cols);
 	m.setElements();
-	
-	Matrix m1 = m*2;
-	std::cout << m - m1;
-	std::cout << m1-m;
-	std::cout << m + m1;
+	m = m.transpose();
+
+	std::cout << m.getRowNum() << std::endl;
+	std::cout << m.getColNum() << std::endl;
+
+	Matrix m1(3,4);
+	m1.setElements();
+	std::cout << m;
+	std::cout << m1;
+	Matrix result =  m * m1;
 
 	
 	return 0;

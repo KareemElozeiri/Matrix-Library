@@ -9,6 +9,10 @@ public:
 	Matrix(const Matrix&);				//copy constructor 
 	~Matrix();							//destructor
 
+	//getters for matrix dimensions
+	int getRowNum() const;
+	int getColNum() const;
+
 	//setter for all elements in the matrix
 	void setElements();
 	//setter for a specific element in the matrix 
