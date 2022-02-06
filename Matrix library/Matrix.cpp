@@ -11,7 +11,6 @@ Matrix::Matrix(int rows_num, int cols_num)
 	for (int i = 0; i < this->rows_num;i++) {
 		this->matrix[i] = new double[this->cols_num];
 	}
-	std::cout << "constructor called"<<std::endl;
 
 }
 
@@ -30,7 +29,6 @@ Matrix::~Matrix() {
 	}
 
 	delete[] matrix;
-	std::cout << "destructor called" << std::endl;
 }
 
 void Matrix::setElements() {
@@ -82,6 +80,56 @@ Matrix Matrix::operator*(Matrix mat)
 
 	return result;
 
+}
+
+Matrix Matrix::operator*(double scalar)
+{
+	Matrix result(this->rows_num, this->cols_num);
+	for (int row = 0; row < this->rows_num; row++) {
+		for (int col = 0; col < this->cols_num; col++) {
+			result.matrix[row][col] = scalar * this->matrix[row][col];
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::operator+(Matrix mat)
+{
+	try {
+		if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num)
+			throw std::string("Addition Error: dimensions do not match !");
+	}
+	catch (std::string e) {
+		std::cout << e << std::endl;
+	}
+	Matrix result(mat.rows_num, mat.cols_num);
+
+	for (int row = 0; row < this->rows_num; row++) {
+		for (int col = 0; col < this->cols_num; col++) {
+			result.matrix[row][col] = this->matrix[row][col] + mat.matrix[row][col];
+		}
+	}
+	return result;
+}
+
+Matrix Matrix::operator-(Matrix mat)
+{
+	try {
+		if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num)
+			throw std::string("Addition Error: dimensions do not match !");
+	}
+	catch (std::string e) {
+		std::cout << e << std::endl;
+		exit(0);
+	}
+	Matrix result(mat.rows_num, mat.cols_num);
+
+	for (int row = 0; row < this->rows_num; row++) {
+		for (int col = 0; col < this->cols_num; col++) {
+			result.matrix[row][col] = this->matrix[row][col] - mat.matrix[row][col];
+		}
+	}
+	return result;
 }
 
 Matrix Matrix::transpose(bool inplace)

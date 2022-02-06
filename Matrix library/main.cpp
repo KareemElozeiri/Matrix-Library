@@ -13,14 +13,11 @@ int main() {
 	int cols = 3;
 	Matrix m(rows,cols);
 	m.setElements();
-	std::cout << "printing matrix: " << m;
-	std::cout << "Getting column 1 and row 1:"<<std::endl;
 	
-	m.setElement(0, 0, 23);
-	Matrix m0 = m;
-	std::cout << m0;
-	Matrix m_trans = m0.transpose();
-	std::cout << m_trans;
+	Matrix m1 = m*2;
+	std::cout << m - m1;
+	std::cout << m1-m;
+	std::cout << m + m1;
 
 	
 	return 0;
