@@ -29,9 +29,11 @@ public:
 	//overloading the operator << for printing out the matrix
 	friend std::ostream&  operator<<(std::ostream& cout, const Matrix& mat);
 	//overloading the multiplication operator for multiplying matrices
-	Matrix operator*(const Matrix mat);
+	friend Matrix operator*(const Matrix matL,const Matrix matR);
 	//overloading the multiplication operator for multiplying matrix by scalar
-	Matrix operator*(double scalar);
+	friend Matrix operator*(Matrix mat, double scalar);
+	friend Matrix operator*(double scalar,Matrix mat);
+
 	//overloading the addition operator for adding matrices
 	Matrix operator+(const Matrix mat);
 	//overloading the subtraction operator for subtracting matrices 

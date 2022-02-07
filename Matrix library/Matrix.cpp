@@ -110,10 +110,10 @@ Matrix Matrix::operator=(const Matrix mat)
 	return *this;
 }
 
-Matrix Matrix::operator*(Matrix mat)
+Matrix operator*(const Matrix matL, const Matrix matR)
 {
 	try {
-		if (this->cols_num != mat.rows_num) {
+		if (matL.cols_num != matR.rows_num) {
 			throw std::string("Invalid matrix multiplications: dimensions do not match!");
 		}
 	}
@@ -122,12 +122,12 @@ Matrix Matrix::operator*(Matrix mat)
 		exit(1);
 	}
 
-	Matrix result(this->rows_num, mat.cols_num);
-	for (int i = 0; i < this->rows_num; i++) {
-		for (int j = 0; j < mat.cols_num; j++) {
+	Matrix result(matL.rows_num, matR.cols_num);
+	for (int i = 0; i < matL.rows_num; i++) {
+		for (int j = 0; j < matR.cols_num; j++) {
 			result.matrix[i][j] = 0;
-			for (int k = 0; k < this->cols_num; k++) {
-				result.matrix[i][j] += this->matrix[i][k] * mat.matrix[k][j];
+			for (int k = 0; k < matL.cols_num; k++) {
+				result.matrix[i][j] += matL.matrix[i][k] * matR.matrix[k][j];
 			}
 		}
 	}
@@ -136,16 +136,6 @@ Matrix Matrix::operator*(Matrix mat)
 
 }
 
-Matrix Matrix::operator*(double scalar)
-{
-	Matrix result(this->rows_num, this->cols_num);
-	for (int row = 0; row < this->rows_num; row++) {
-		for (int col = 0; col < this->cols_num; col++) {
-			result.matrix[row][col] = scalar * this->matrix[row][col];
-		}
-	}
-	return result;
-}
 
 Matrix Matrix::operator+(const Matrix mat)
 {
@@ -211,4 +201,27 @@ std::ostream& operator<<(std::ostream& os, const Matrix& mat)
 	}
 
 	return os;
+}
+
+Matrix operator*(Matrix mat, double scalar)
+{
+	Matrix result(mat.rows_num, mat.cols_num);
+	for (int row = 0; row < mat.rows_num; row++) {
+		for (int col = 0; col < mat.cols_num; col++) {
+			result.matrix[row][col] = scalar * mat.matrix[row][col];
+		}
+	}
+	return result;
+}
+
+Matrix operator*(double scalar, Matrix mat)
+{
+	Matrix result(mat.rows_num, mat.cols_num);
+	for (int row = 0; row < mat.rows_num; row++) {
+		for (int col = 0; col < mat.cols_num; col++) {
+			result.matrix[row][col] = scalar * mat.matrix[row][col];
+		}
+	}
+	return result;
+	
 }
