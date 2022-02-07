@@ -44,6 +44,7 @@ public:
 private:
 	int rows_num;
 	int cols_num;
+	//the main table that contains all of our matrix elements 
 	double** matrix;
 };
 

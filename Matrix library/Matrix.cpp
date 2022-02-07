@@ -12,6 +12,8 @@ Matrix::Matrix(int rows_num, int cols_num)
 		this->matrix[i] = new double[this->cols_num];
 	}
 
+	this->setElements(0.0);
+
 }
 
 Matrix::Matrix(const Matrix& mat)
@@ -54,6 +56,24 @@ void Matrix::setElements() {
 			std::cout << "Enter entery (" << row << "," << col << ") : ";
 			std::cin >> this->matrix[row][col];
 			std::cout << std::endl;
+		}
+	}
+}
+
+void Matrix::setElements(double value) {
+	for (int i = 0; i < this->rows_num; i++) {
+		for (int j = 0; j < this->cols_num; j++) {
+			this->matrix[i][j] = value;
+		}
+	}
+
+}
+
+void Matrix::setElements(double** p) {
+	//copying everything in p to the matrix double pointer
+	for (int i = 0; i < this->rows_num; i++) {
+		for (int j = 0; j < this->cols_num; j++) {
+			this->matrix[i][j] = p[i][j];
 		}
 	}
 }
