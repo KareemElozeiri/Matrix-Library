@@ -245,3 +245,50 @@ Matrix operator*(double scalar, Matrix mat)
 	return result;
 	
 }
+
+Matrix operator+=(Matrix& matL, const Matrix& matR) {
+	Matrix temp(matL.rows_num, matL.cols_num);
+	for (int row = 0; row < matL.rows_num; row++) {
+		for (int col = 0; col < matL.cols_num; col++) {
+			temp.matrix[row][col] = matL.matrix[row][col] + matR.matrix[row][col];
+		}
+	}
+	matL = temp;
+	return temp;
+}
+
+Matrix operator-=(Matrix& matL, const Matrix& matR) {
+	Matrix temp(matL.rows_num, matL.cols_num);
+	for (int row = 0; row < matL.rows_num; row++) {
+		for (int col = 0; col < matL.cols_num; col++) {
+			temp.matrix[row][col] = matL.matrix[row][col] - matR.matrix[row][col];
+		}
+	}
+	matL = temp;
+	return temp;
+}
+
+Matrix operator*=(Matrix& matL, const Matrix& matR) {
+	try {
+		if (matL.cols_num != matR.rows_num) {
+			throw std::string("Invalid matrix multiplications: dimensions do not match!");
+		}
+	}
+	catch (std::string e) {
+		std::cout << e << std::endl;
+		exit(1);
+	}
+
+	Matrix result(matL.rows_num, matR.cols_num);
+	for (int i = 0; i < matL.rows_num; i++) {
+		for (int j = 0; j < matR.cols_num; j++) {
+			result.matrix[i][j] = 0;
+			for (int k = 0; k < matL.cols_num; k++) {
+				result.matrix[i][j] += matL.matrix[i][k] * matR.matrix[k][j];
+			}
+		}
+	}
+	matL = result;
+	return result;
+}
+

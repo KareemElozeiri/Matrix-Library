@@ -9,9 +9,9 @@ int main() {
 	Matrix m(rows,cols);
 	m.setElements();
 	std::cout << m;
-	Matrix m2 = m.transpose();
+	m *= m.transpose();
+	std::cout << m;
 	
-	std::cout << m * m2;
 
 	return 0;
 }

@@ -15,6 +15,8 @@ public:
 
 	//setter for all elements in the matrix
 	void setElements();
+	void setElements(double value);
+	void setElements(double** p);
 	//setter for a specific element in the matrix 
 	void setElement(int row, int col,double value);
 	//getter for a specific element in the matrix 
@@ -33,6 +35,10 @@ public:
 	//overloading the multiplication operator for multiplying matrix by scalar
 	friend Matrix operator*(Matrix mat, double scalar);
 	friend Matrix operator*(double scalar,Matrix mat);
+	
+	friend Matrix operator+=(Matrix& matL, const Matrix& matR);
+	friend Matrix operator-=(Matrix& matL, const Matrix& matR);
+	friend Matrix operator*=(Matrix& matL, const Matrix& matR);
 
 	//overloading the addition operator for adding matrices
 	Matrix operator+(const Matrix mat);
