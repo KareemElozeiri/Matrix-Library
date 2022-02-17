@@ -1,14 +1,19 @@
 #include "Matrix.h"
 #include <iostream>
 
+template<typename T> class Matrix;
+template <typename T> Matrix<T> operator+=(Matrix<T>& matL, const Matrix<T>& matR);
 
-Matrix::Matrix(int rows_num, int cols_num)
+
+
+template <typename T>
+Matrix<T>::Matrix(int rows_num, int cols_num)
 {
 	this->rows_num = rows_num;
 	this->cols_num = cols_num;
-	this->matrix = new double*[this->rows_num];
+	this->matrix = new double* [this->rows_num];
 
-	for (int i = 0; i < this->rows_num;i++) {
+	for (int i = 0; i < this->rows_num; i++) {
 		this->matrix[i] = new double[this->cols_num];
 	}
 
@@ -16,7 +21,8 @@ Matrix::Matrix(int rows_num, int cols_num)
 
 }
 
-Matrix::Matrix(const Matrix& mat)
+template <typename T>
+Matrix<T>::Matrix(const Matrix<T>& mat)
 {
 	this->rows_num = mat.rows_num;
 	this->cols_num = mat.cols_num;
@@ -32,7 +38,8 @@ Matrix::Matrix(const Matrix& mat)
 	}
 }
 
-Matrix::~Matrix() {
+template <typename T>
+Matrix<T>::~Matrix() {
 	for (int i = 0; i < this->rows_num; i++) {
 		delete[] this->matrix[i];
 	}
@@ -40,17 +47,20 @@ Matrix::~Matrix() {
 	delete[] matrix;
 }
 
-int Matrix::getRowNum() const
+template <typename T>
+int Matrix<T>::getRowNum() const
 {
 	return this->rows_num;
 }
 
-int Matrix::getColNum() const
+template <typename T>
+int Matrix<T>::getColNum() const
 {
 	return this->cols_num;
 }
 
-void Matrix::setElements() {
+template <typename T>
+void Matrix<T>::setElements() {
 	for (int row = 0; row < this->rows_num; row++) {
 		for (int col = 0; col < this->cols_num; col++) {
 			std::cout << "Enter entery (" << row << "," << col << ") : ";
@@ -60,7 +70,8 @@ void Matrix::setElements() {
 	}
 }
 
-void Matrix::setElements(double value) {
+template <typename T>
+void Matrix<T>::setElements(T value) {
 	for (int i = 0; i < this->rows_num; i++) {
 		for (int j = 0; j < this->cols_num; j++) {
 			this->matrix[i][j] = value;
@@ -69,7 +80,8 @@ void Matrix::setElements(double value) {
 
 }
 
-void Matrix::setElements(double** p) {
+template <typename T>
+void Matrix<T>::setElements(T** p) {
 	//copying everything in p to the matrix double pointer
 	for (int i = 0; i < this->rows_num; i++) {
 		for (int j = 0; j < this->cols_num; j++) {
@@ -78,22 +90,26 @@ void Matrix::setElements(double** p) {
 	}
 }
 
-void Matrix::setElement(int row, int col,double value) {
+template <typename T>
+void Matrix<T>::setElement(int row, int col, T value) {
 	this->matrix[row][col] = value;
 }
 
-double Matrix::getElement(int row, int col) const {
+template <typename T>
+T Matrix<T>::getElement(int row, int col) const {
 	return this->matrix[row][col];
 }
 
 
-double* Matrix::getRow(int row_num) const {
+template <typename T>
+T* Matrix<T>::getRow(int row_num) const {
 	double* row = this->matrix[row_num];
 	return row;
 }
 
 
-double* Matrix::getCol(int col_num) const {
+template <typename T>
+T* Matrix<T>::getCol(int col_num) const {
 	double* col = new double[this->rows_num];
 	for (int i = 0; i < this->rows_num; i++) {
 		col[i] = this->matrix[i][col_num];
@@ -101,7 +117,8 @@ double* Matrix::getCol(int col_num) const {
 	return col;
 }
 
-Matrix Matrix::operator=(const Matrix mat)
+template <typename T>
+Matrix<T> Matrix<T>::operator=(const Matrix<T> mat)
 {
 	if (this == &mat) {
 		return *this;
@@ -130,7 +147,8 @@ Matrix Matrix::operator=(const Matrix mat)
 	return *this;
 }
 
-Matrix operator*(const Matrix matL, const Matrix matR)
+template <typename T>
+Matrix<T> operator*(const Matrix<T> matL, const Matrix<T> matR)
 {
 	try {
 		if (matL.cols_num != matR.rows_num) {
@@ -142,7 +160,7 @@ Matrix operator*(const Matrix matL, const Matrix matR)
 		exit(1);
 	}
 
-	Matrix result(matL.rows_num, matR.cols_num);
+	Matrix<T> result(matL.rows_num, matR.cols_num);
 	for (int i = 0; i < matL.rows_num; i++) {
 		for (int j = 0; j < matR.cols_num; j++) {
 			result.matrix[i][j] = 0;
@@ -156,8 +174,8 @@ Matrix operator*(const Matrix matL, const Matrix matR)
 
 }
 
-
-Matrix Matrix::operator+(const Matrix mat)
+template <typename T>
+Matrix<T> Matrix<T>::operator+(const Matrix<T> mat)
 {
 	try {
 		if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num)
@@ -177,7 +195,8 @@ Matrix Matrix::operator+(const Matrix mat)
 	return result;
 }
 
-Matrix Matrix::operator-(const Matrix mat)
+template <typename T>
+Matrix<T> Matrix<T>::operator-(const Matrix<T> mat)
 {
 	try {
 		if (this->rows_num != mat.rows_num || this->cols_num != mat.cols_num)
@@ -187,7 +206,7 @@ Matrix Matrix::operator-(const Matrix mat)
 		std::cout << e << std::endl;
 		exit(1);
 	}
-	Matrix result(mat.rows_num, mat.cols_num);
+	Matrix<T> result(mat.rows_num, mat.cols_num);
 
 	for (int row = 0; row < this->rows_num; row++) {
 		for (int col = 0; col < this->cols_num; col++) {
@@ -197,9 +216,10 @@ Matrix Matrix::operator-(const Matrix mat)
 	return result;
 }
 
-Matrix Matrix::transpose(bool inplace)
+template <typename T>
+Matrix<T> Matrix<T>::transpose(bool inplace)
 {
-	Matrix trans(this->cols_num,this->rows_num);
+	Matrix<T> trans(this->cols_num, this->rows_num);
 	for (int row = 0; row < this->rows_num; row++) {
 		for (int col = 0; col < this->cols_num; col++) {
 			trans.matrix[col][row] = this->matrix[row][col];
@@ -208,9 +228,8 @@ Matrix Matrix::transpose(bool inplace)
 	return trans;
 }
 
-
-
-std::ostream& operator<<(std::ostream& os, const Matrix& mat)
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const Matrix<T>& mat)
 {
 	os << std::endl;
 	for (int row = 0; row < mat.rows_num; row++) {
@@ -223,9 +242,10 @@ std::ostream& operator<<(std::ostream& os, const Matrix& mat)
 	return os;
 }
 
-Matrix operator*(Matrix mat, double scalar)
+template <typename T>
+Matrix<T> operator*(Matrix<T> mat, T scalar)
 {
-	Matrix result(mat.rows_num, mat.cols_num);
+	Matrix<T> result(mat.rows_num, mat.cols_num);
 	for (int row = 0; row < mat.rows_num; row++) {
 		for (int col = 0; col < mat.cols_num; col++) {
 			result.matrix[row][col] = scalar * mat.matrix[row][col];
@@ -234,20 +254,22 @@ Matrix operator*(Matrix mat, double scalar)
 	return result;
 }
 
-Matrix operator*(double scalar, Matrix mat)
+template <typename T>
+Matrix<T> operator*(T scalar, Matrix<T> mat)
 {
-	Matrix result(mat.rows_num, mat.cols_num);
+	Matrix<T> result(mat.rows_num, mat.cols_num);
 	for (int row = 0; row < mat.rows_num; row++) {
 		for (int col = 0; col < mat.cols_num; col++) {
 			result.matrix[row][col] = scalar * mat.matrix[row][col];
 		}
 	}
 	return result;
-	
+
 }
 
-Matrix operator+=(Matrix& matL, const Matrix& matR) {
-	Matrix temp(matL.rows_num, matL.cols_num);
+template <typename T>
+Matrix<T> operator+=(Matrix<T>& matL, const Matrix<T>& matR) {
+	Matrix<T> temp(matL.rows_num, matL.cols_num);
 	for (int row = 0; row < matL.rows_num; row++) {
 		for (int col = 0; col < matL.cols_num; col++) {
 			temp.matrix[row][col] = matL.matrix[row][col] + matR.matrix[row][col];
@@ -257,8 +279,9 @@ Matrix operator+=(Matrix& matL, const Matrix& matR) {
 	return temp;
 }
 
-Matrix operator-=(Matrix& matL, const Matrix& matR) {
-	Matrix temp(matL.rows_num, matL.cols_num);
+template <typename T>
+Matrix<T> operator-=(Matrix<T>& matL, const Matrix<T>& matR) {
+	Matrix<T> temp(matL.rows_num, matL.cols_num);
 	for (int row = 0; row < matL.rows_num; row++) {
 		for (int col = 0; col < matL.cols_num; col++) {
 			temp.matrix[row][col] = matL.matrix[row][col] - matR.matrix[row][col];
@@ -268,7 +291,8 @@ Matrix operator-=(Matrix& matL, const Matrix& matR) {
 	return temp;
 }
 
-Matrix operator*=(Matrix& matL, const Matrix& matR) {
+template <typename T>
+Matrix<T> operator*=(Matrix<T>& matL, const Matrix<T>& matR) {
 	try {
 		if (matL.cols_num != matR.rows_num) {
 			throw std::string("Invalid matrix multiplications: dimensions do not match!");
@@ -279,7 +303,7 @@ Matrix operator*=(Matrix& matL, const Matrix& matR) {
 		exit(1);
 	}
 
-	Matrix result(matL.rows_num, matR.cols_num);
+	Matrix<T> result(matL.rows_num, matR.cols_num);
 	for (int i = 0; i < matL.rows_num; i++) {
 		for (int j = 0; j < matR.cols_num; j++) {
 			result.matrix[i][j] = 0;

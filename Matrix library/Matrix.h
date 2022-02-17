@@ -2,6 +2,7 @@
 #include <iostream>
 
 
+template <typename T>
 class Matrix
 {
 public:
@@ -15,42 +16,49 @@ public:
 
 	//setter for all elements in the matrix
 	void setElements();
-	void setElements(double value);
-	void setElements(double** p);
+	void setElements(T value);
+	void setElements(T** p);
 	//setter for a specific element in the matrix 
-	void setElement(int row, int col,double value);
+	void setElement(int row, int col, T value);
 	//getter for a specific element in the matrix 
-	double getElement(int row, int col) const;
+	T getElement(int row, int col) const;
 	//getters for specific rows and columns 
-	double* getRow(int row) const;
-	double* getCol(int col) const;
+	T* getRow(int row) const;
+	T* getCol(int col) const;
 
 
 	//overloading the equal operator for matrices
-	Matrix operator=(const Matrix mat);
+	Matrix<T> operator=(const Matrix<T> mat);
 	//overloading the operator << for printing out the matrix
-	friend std::ostream&  operator<<(std::ostream& cout, const Matrix& mat);
+	template<typename T>
+	friend std::ostream& operator<<(std::ostream& cout, const Matrix<T>& mat);
 	//overloading the multiplication operator for multiplying matrices
-	friend Matrix operator*(const Matrix matL,const Matrix matR);
+	template<typename T>
+	friend Matrix<T> operator*(const Matrix<T> matL, const Matrix<T> matR);
 	//overloading the multiplication operator for multiplying matrix by scalar
-	friend Matrix operator*(Matrix mat, double scalar);
-	friend Matrix operator*(double scalar,Matrix mat);
-	
-	friend Matrix operator+=(Matrix& matL, const Matrix& matR);
-	friend Matrix operator-=(Matrix& matL, const Matrix& matR);
-	friend Matrix operator*=(Matrix& matL, const Matrix& matR);
+	template<typename T>
+	friend Matrix<T> operator*(Matrix<T> mat, T scalar);
+	template<typename T>
+	friend Matrix<T> operator*(T scalar, Matrix<T> mat);
+
+	template<typename T>
+	friend Matrix<T> operator+=(Matrix<T>& matL, const Matrix<T>& matR);
+	template<typename T>
+	friend Matrix<T> operator-=(Matrix<T>& matL, const Matrix<T>& matR);
+	template<typename T>
+	friend Matrix<T> operator*=(Matrix<T>& matL, const Matrix<T>& matR);
 
 	//overloading the addition operator for adding matrices
-	Matrix operator+(const Matrix mat);
+	Matrix<T> operator+(const Matrix<T> mat);
 	//overloading the subtraction operator for subtracting matrices 
-	Matrix operator-(const Matrix mat);
+	Matrix<T> operator-(const Matrix<T> mat);
 	//function for getting trasnpose of the matrix and returning that transpose of the matrix 
-	Matrix transpose(bool inplace = false);
+	Matrix<T> transpose(bool inplace = false);
 
 private:
 	int rows_num;
 	int cols_num;
 	//the main table that contains all of our matrix elements 
-	double** matrix;
+	T** matrix;
 };
 

@@ -1,15 +1,15 @@
 #include <iostream>
 #include "Matrix.h"
-
+#include "Matrix.cpp"
 
 
 int main() {
 	int rows = 2;
 	int cols = 3;
-	Matrix m(rows,cols);
+	Matrix<double> m(rows,cols);
 	m.setElements();
 	std::cout << m;
-	m *= m.transpose();
+	m = 2.0* m * m;
 	std::cout << m;
 	
 
