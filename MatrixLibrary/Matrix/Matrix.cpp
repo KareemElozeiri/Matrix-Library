@@ -1,10 +1,6 @@
 #include "Matrix.h"
 #include <iostream>
 
-template<typename T> class Matrix;
-template <typename T> Matrix<T> operator+=(Matrix<T>& matL, const Matrix<T>& matR);
-
-
 
 template <typename T>
 Matrix<T>::Matrix(int rows_num, int cols_num)
@@ -44,7 +40,7 @@ Matrix<T>::~Matrix() {
 		delete[] this->matrix[i];
 	}
 
-	delete[] matrix;
+	delete[] this->matrix;
 }
 
 template <typename T>
@@ -315,4 +311,6 @@ Matrix<T> operator*=(Matrix<T>& matL, const Matrix<T>& matR) {
 	matL = result;
 	return result;
 }
+
+
 

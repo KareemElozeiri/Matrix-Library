@@ -62,3 +62,4 @@ private:
 	T** matrix;
 };
 
+#include "Matrix.cpp"
